@@ -13,29 +13,47 @@ def main():
     parser.add_argument("--input", "-i", type=str, required=True)
     args = parser.parse_args()
     user_input = args.input
-    user_input_list = user_input.split()
-    level_input = user_input_list[0]
-    role_input = user_input_list[1]
-    language_input = user_input_list[2]
     
     # programming_language = ["Python","PHP","JavaScript",""]
     # level = ["Easy","Intermediate","Difficult"]
     # roles = ["Backend","Frontend","Fullstack","ML Engineer","Data Engineer","Security Engineer","DevOps Engineer"]
     
     print(f'User input: {user_input}')
-    project_ideas = [generate_project_ideas(level_input, role_input) for _ in range(0,3)]
-    tutorial_links = [generate_tutorial_link(idea, language_input) for idea in project_ideas]
-    print(f"Ideas:{project_ideas}")
+
+    ideas = generate_idea(user_input)
+    tutorial_links = generate_link(user_input)
+    print(f"Ideas:{ideas}")
     print(f"Useful Links:{tutorial_links}")
 
-def generate_project_ideas(level_input: str, role_input: str) -> str :
+def generate_idea(level_input: str, role_input: str) -> str :
     
     openai.api_key = os.environ.get("API_Key")
- 
-    prompt = f"Suggest one {level_input} portfolio project to be a {role_input} engineer(only project name)"
-    #Generate response
+    
+    #Generate response for ideas
+    prompt = f"Suggest three {level_input} portfolio projects to be a {role_input} engineer(only project name)"
     response = openai.Completion.create(model="text-davinci-003", 
                                         prompt=prompt, 
+                                        temperature=1,
+                                        max_tokens=256,
+                                        best_of=3)
+    
+    #change output to list
+    portfolio_idea: str = response["choices"][0]["text"]
+    portfolio_idea = portfolio_idea.strip()
+    portfolio_idea_array = re.split(",|\n|;", portfolio_idea)
+    portfolio_idea_array = [k.lower().strip() for k in portfolio_idea_array]
+    portfolio_idea_array = [k for k in portfolio_idea_array if len(k) > 0]
+    
+    return portfolio_idea_array
+
+def generate_link(language_input :str) -> str :
+    
+    openai.api_key = os.environ.get("API_Key")
+    
+    #Generate response
+    enriched_prompt = f"Suggest three best free resource to learn {language_input}(link only)"
+    response = openai.Completion.create(model="text-davinci-003",
+                                        prompt=enriched_prompt,
                                         temperature=1,
                                         max_tokens=256,
                                         top_p=1,
@@ -43,32 +61,14 @@ def generate_project_ideas(level_input: str, role_input: str) -> str :
                                         frequency_penalty=0,
                                         presence_penalty=0)
     
-    portfolio_idea: str = response["choices"][0]["text"]
-    portfolio_idea = portfolio_idea.strip()
-    portfolio_idea = portfolio_idea.replace("1.","")
-    portfolio_idea = portfolio_idea.lower()
-    
-    return portfolio_idea
-
-def generate_tutorial_link(project_example: str, language_input: str) -> str :
-    
-    openai.api_key = os.environ.get("API_Key")
-    
-    #Generate response
-    enriched_prompt = f"Suggest one best resource to learn how to build a {project_example} using {language_input}(link only)"
-    print(enriched_prompt)
-    response = openai.Completion.create(model="text-davinci-003",
-                                        prompt=enriched_prompt,
-                                        temperature=1,
-                                        max_tokens=256,
-                                        top_p=1,
-                                        frequency_penalty=0,
-                                        presence_penalty=0)
-
+    #Change output to list
     tutorial_link: str = response["choices"][0]["text"]
     tutorial_link = tutorial_link.strip()
+    tutorial_link_array = re.split(",|\n|;", tutorial_link)
+    tutorial_link_array = [k.lower().strip() for k in tutorial_link_array]
+    tutorial_link_array = [k for k in tutorial_link_array if len(k) > 0]
 
-    return tutorial_link
+    return tutorial_link_array
 
 if __name__ == "__main__" :
     main()

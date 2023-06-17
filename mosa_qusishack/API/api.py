@@ -1,9 +1,8 @@
 from fastapi import FastAPI, HTTPException
-from openapi import generate_project_ideas, generate_tutorial_link
+from openapi import generate_idea, generate_link
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
-MAX_INPUT_LENGTH = 32
 
 app.add_middleware(
     CORSMiddleware,
@@ -14,13 +13,13 @@ app.add_middleware(
 )
 
 @app.get("/generate_project_ideas")
-async def generate_project_ideas(level_input: str, role_input: str):
-    ideas_list = generate_project_ideas(level_input, role_input)
+async def get_project_ideas(level_input: str, role_input: str):    
+    ideas_list = generate_idea(level_input, role_input)
     return {"portfolio_ideas": ideas_list}
 
 
 @app.get("/generate_tutorial_links")
-async def generate_tutorial_link(project_example: str, language_input: str):
-    tutorial_links_list = generate_tutorial_link(project_example, language_input)
-    return {"tutorial_links": tutorial_links_list}
+async def get_link(language_input: str):
+    links_list = generate_link(language_input)
+    return {"tutorial_links": links_list}
 
