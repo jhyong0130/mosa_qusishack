@@ -1,7 +1,7 @@
 import os
 import openai
 import argparse
-import re
+import re 
 
 def main():
     
@@ -45,18 +45,15 @@ def generate_idea(level_input: str, role_input: str, language_input: str) -> str
 
 def generate_link(language_input :str) -> str :
     
-    openai.api_key = os.environ.get("OPENAI_API_KEY")
+    openai.api_key = os.getenv("OPENAI_API_KEY")
     
     #Generate response
-    prompt = f"Suggest three free online course to learn {language_input}(link only)"
+    link_prompt = f"Suggest three free online course to learn {language_input}(link only)"
     response = openai.Completion.create(model="text-davinci-003",
-                                        prompt=prompt,
+                                        prompt=link_prompt,
                                         temperature=1,
                                         max_tokens=256,
-                                        top_p=1,
-                                        best_of=3,
-                                        frequency_penalty=0,
-                                        presence_penalty=0)
+                                        best_of=3)
     
     #Change output to list
     tutorial_link: str = response["choices"][0]["text"]
@@ -71,16 +68,13 @@ def generate_jobscope_and_skills(role_input: str):
     
     openai.api_key = os.getenv("OPENAI_API_KEY")
     
-    prompt = f"Job scope of {role_input} and skillls required to be a{role_input} programmer in 3 sentences"
+    job_prompt = f"Job scope of {role_input} and skills required to be a{role_input} programmer in 3 sentences"
     
     response = openai.Completion.create(model="text-davinci-003",
-                                        prompt=prompt,
+                                        prompt=job_prompt,
                                         temperature=0,
                                         max_tokens=256,
-                                        top_p=1,
-                                        best_of=3,
-                                        frequency_penalty=0,
-                                        presence_penalty=0)
+                                        best_of=3)
      #Change output to list
     jobscope_and_skills: str = response["choices"][0]["text"]
     jobscope_and_skills = jobscope_and_skills.strip()

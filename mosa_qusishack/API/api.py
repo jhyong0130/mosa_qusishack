@@ -28,4 +28,4 @@ async def get_link(language_input: str):
 @app.get("/generate_jobscope_and_skills")
 async def get_jobscope_skills(role_input: str):
     jobscope_and_skills = generate_jobscope_and_skills(role_input)
-    return{"job scope and skills required": jobscope_and_skills}
+    return{"job_scope_and_skills_required": jobscope_and_skills}
