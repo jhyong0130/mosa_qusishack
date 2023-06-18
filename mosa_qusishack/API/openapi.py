@@ -32,7 +32,7 @@ def generate_idea(level_input: str, role_input: str, language_input: str) -> str
                                         prompt=prompt, 
                                         temperature=1,
                                         max_tokens=256,
-                                        best_of=3)
+                                        best_of=5)
     
     #change output to list
     portfolio_idea: str = response["choices"][0]["text"]
@@ -48,9 +48,9 @@ def generate_link(language_input :str) -> str :
     openai.api_key = os.environ.get("OPENAI_API_KEY")
     
     #Generate response
-    enriched_prompt = f"Suggest three free online course to learn {language_input}(link only)"
+    prompt = f"Suggest three free online course to learn {language_input}(link only)"
     response = openai.Completion.create(model="text-davinci-003",
-                                        prompt=enriched_prompt,
+                                        prompt=prompt,
                                         temperature=1,
                                         max_tokens=256,
                                         top_p=1,
