@@ -32,7 +32,10 @@ def generate_idea(level_input: str, role_input: str, language_input: str) -> str
                                         prompt=prompt, 
                                         temperature=1,
                                         max_tokens=256,
-                                        best_of=5)
+                                        top_p=1,
+                                        best_of=3,
+                                        frequency_penalty=0,
+                                        presence_penalty=0)
     
     #change output to list
     portfolio_idea: str = response["choices"][0]["text"]
@@ -53,7 +56,11 @@ def generate_link(language_input :str) -> str :
                                         prompt=link_prompt,
                                         temperature=1,
                                         max_tokens=256,
-                                        best_of=3)
+                                        top_p=1,
+                                        best_of=3,
+                                        frequency_penalty=0,
+                                        presence_penalty=0)
+    
     
     #Change output to list
     tutorial_link: str = response["choices"][0]["text"]
@@ -74,7 +81,11 @@ def generate_jobscope_and_skills(role_input: str):
                                         prompt=job_prompt,
                                         temperature=0,
                                         max_tokens=256,
-                                        best_of=3)
+                                        top_p=1,
+                                        best_of=3,
+                                        frequency_penalty=0,
+                                        presence_penalty=0)
+    
      #Change output to list
     jobscope_and_skills: str = response["choices"][0]["text"]
     jobscope_and_skills = jobscope_and_skills.strip()
