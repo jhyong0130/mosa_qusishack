@@ -1,7 +1,7 @@
 interface FormProps {
   setLevel: any;
-    setRole: any;
-    setLanguage: any;
+  setRole: any;
+  setLanguage: any;
   onSubmit: any;
   isLoading: boolean;
 }
@@ -22,9 +22,9 @@ const Form: React.FC<FormProps> = (props) => {
           id="level-select"
           onChange={(e) => props.setLevel(e.currentTarget.value)}
         >
-          <option value="Easy">簡単</option>
+          <option value="Beginner">簡単</option>
           <option value="Intermediate">普通</option>
-          <option value="Difficult">高度</option>
+          <option value="Challenging">高度</option>
         </select>
       </div>
       <div className="my-3">
@@ -70,11 +70,28 @@ const Form: React.FC<FormProps> = (props) => {
         >
           <option value="Python">Python</option>
           <option value="JavaScript">JavaScript</option>
+          <option value="C">C</option>
+          <option value="C++">C++</option>
+          <option value="C#">C#</option>
+          <option value="R">R</option>
+          <option value="Visual Basic">Visual Basic</option>
+          <option value="Java">Java</option>
+          <option value="PHP">PHP</option>
+          <option value="SQL">SQL</option>
+          <option value="Go">Go</option>
+          <option value="Ruby">Ruby</option>
+          <option value="Swift">Swift</option>
+          <option value="Dart">Dart</option>
+          <option value="Rust">Rust</option>
+          <option value="Kotlin">Kotlin</option>
+          <option value="Perl">Perl</option>
+          <option value="Solidity">Solidity</option>
+          <option value="Elixir">Elixir</option>
         </select>
       </div>
       <button
         className="mt-3 w-full bg-gradient-to-r from-teal-400 
-        to-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        to-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
         onClick={props.onSubmit}
         disabled={props.isLoading}
       >
