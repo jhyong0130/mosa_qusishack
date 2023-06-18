@@ -1,8 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from openapi import generate_idea, generate_link
 from fastapi.middleware.cors import CORSMiddleware
+from mangum import Mangum
 
 app = FastAPI()
+handler = Mangum(app)
 
 app.add_middleware(
     CORSMiddleware,

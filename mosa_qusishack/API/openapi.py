@@ -1,14 +1,12 @@
 import os
-from dotenv import load_dotenv
-load_dotenv()
-
 import openai
 import argparse
 import re
 
 def main():
-
+    
     #get input from user
+    
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", "-i", type=str, required=True)
     args = parser.parse_args()
@@ -27,7 +25,7 @@ def main():
 
 def generate_idea(level_input: str, role_input: str) -> str :
     
-    openai.api_key = os.environ.get("API_Key")
+    openai.api_key = os.getenv("OPENAI_API_KEY")
     
     #Generate response for ideas
     prompt = f"Suggest three {level_input} portfolio projects to be a {role_input} engineer(only project name)"
@@ -48,7 +46,7 @@ def generate_idea(level_input: str, role_input: str) -> str :
 
 def generate_link(language_input :str) -> str :
     
-    openai.api_key = os.environ.get("API_Key")
+    openai.api_key = os.getenv("OPENAI_API_KEY")
     
     #Generate response
     enriched_prompt = f"Suggest three best free resource to learn {language_input}(link only)"
