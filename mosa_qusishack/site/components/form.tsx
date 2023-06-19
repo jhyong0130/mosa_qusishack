@@ -22,6 +22,7 @@ const Form: React.FC<FormProps> = (props) => {
           id="level-select"
           onChange={(e) => props.setLevel(e.currentTarget.value)}
         >
+          <option value=""></option>
           <option value="Beginner">簡単</option>
           <option value="Intermediate">普通</option>
           <option value="Challenging">高度</option>
@@ -40,6 +41,7 @@ const Form: React.FC<FormProps> = (props) => {
           id="role-select"
           onChange={(e) => props.setRole(e.currentTarget.value)}
         >
+          <option value=""></option>
           <option value="Frontend">Frontend</option>
           <option value="Backend">Backend</option>
           <option value="Fullstack">Fullstack</option>
@@ -68,6 +70,7 @@ const Form: React.FC<FormProps> = (props) => {
           id="language-select"
           onChange={(e) => props.setLanguage(e.currentTarget.value)}
         >
+          <option value=""></option>
           <option value="Python">Python</option>
           <option value="JavaScript">JavaScript</option>
           <option value="C">C</option>
