@@ -1,15 +1,19 @@
 FROM amazonlinux:2
 
-# Install Python
-RUN yum install -y python37 && \
+# Install Python 3.8
+RUN amazon-linux-extras enable python3.8 && \
+    yum install -y python3.8 && \
     yum install -y python3-pip && \
     yum install -y zip && \
     yum clean all
 
+# Install dependencies
+RUN yum install -y gcc openssl-devel bzip2-devel libffi-devel make
+
 # Set up PIP and Venv
-RUN python3.7 -m pip install --upgrade pip && \
-    python3.7 -m pip install virtualenv
-RUN python3.7 -m venv base
+RUN python3.8 -m pip install --upgrade pip && \
+    python3.8 -m pip install virtualenv
+RUN python3.8 -m venv base
 RUN source base/bin/activate
 
 # Install dependencies

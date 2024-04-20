@@ -1,4 +1,6 @@
 fastapi
 mangum
-openai
+openai==1.7.0
 requests
+pydantic
+python-dotenv
